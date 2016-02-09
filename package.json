@@ -1,16 +1,24 @@
 {
   "name": "type-checker",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "A library for comparing objects with an expected shape",
   "main": "dist/index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register",
     "eslint": "eslint .",
     "prepublish": "babel src --out-dir dist"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/noyesa/check-shape.git"
+  },
   "keywords": [],
   "author": "Andrew Noyes <noyesa@gmail.com>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/noyesa/check-shape/issues"
+  },
+  "homepage": "https://github.com/noyesa/check-shape#readme",
   "dependencies": {
     "lodash.every": "^4.1.0",
     "lodash.foreach": "^4.0.0",
