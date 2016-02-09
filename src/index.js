@@ -6,7 +6,7 @@ import isString from 'lodash.isstring';
 import isPlainObject from 'lodash.isplainobject';
 import isFunction from 'lodash.isfunction';
 import hasIn from 'lodash.hasin';
-import fromPairs from 'lodash.fromPairs';
+import fromPairs from 'lodash.frompairs';
 
 export class PrimitiveTypeChecker {
   /**
