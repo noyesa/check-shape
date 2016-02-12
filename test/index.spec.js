@@ -1,6 +1,5 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import noop from 'lodash.noop';
 import {
   PrimitiveTypeChecker,
   ObjectTypeChecker,
@@ -122,7 +121,7 @@ describe('makeTypeChecker', () => {
     expect(checker.check('one')).to.be.false;
     expect(checker.check(true)).to.be.false;
     expect(checker.check(undefined)).to.be.false;
-    expect(checker.check(noop)).to.be.false;
+    expect(checker.check(function() {})).to.be.false;
     expect(checker.check({})).to.be.false;
   });
 
@@ -132,7 +131,7 @@ describe('makeTypeChecker', () => {
     expect(checker.check('one')).to.be.true;
     expect(checker.check(true)).to.be.false;
     expect(checker.check(undefined)).to.be.false;
-    expect(checker.check(noop)).to.be.false;
+    expect(checker.check(function() {})).to.be.false;
     expect(checker.check({})).to.be.false;
   });
 
@@ -142,7 +141,7 @@ describe('makeTypeChecker', () => {
     expect(checker.check('one')).to.be.false;
     expect(checker.check(true)).to.be.true;
     expect(checker.check(undefined)).to.be.false;
-    expect(checker.check(noop)).to.be.false;
+    expect(checker.check(function() {})).to.be.false;
     expect(checker.check({})).to.be.false;
   });
 
@@ -152,7 +151,7 @@ describe('makeTypeChecker', () => {
     expect(checker.check('one')).to.be.false;
     expect(checker.check(true)).to.be.false;
     expect(checker.check(undefined)).to.be.true;
-    expect(checker.check(noop)).to.be.false;
+    expect(checker.check(function() {})).to.be.false;
     expect(checker.check({})).to.be.false;
   });
 
@@ -162,7 +161,7 @@ describe('makeTypeChecker', () => {
     expect(checker.check('one')).to.be.false;
     expect(checker.check(true)).to.be.false;
     expect(checker.check(undefined)).to.be.false;
-    expect(checker.check(noop)).to.be.true;
+    expect(checker.check(function() {})).to.be.true;
     expect(checker.check({})).to.be.false;
   });
 
@@ -177,7 +176,7 @@ describe('makeTypeChecker', () => {
 
     expect(checker.check({ foo: Math.random() })).to.be.true;
     expect(checker.check({ foo: 'one' })).to.be.false;
-    expect(checker.check({ foo: noop })).to.be.false;
+    expect(checker.check({ foo() {} })).to.be.false;
     expect(checker.check({ foo: true })).to.be.false;
 
     checker = makeTypeChecker({
@@ -186,7 +185,7 @@ describe('makeTypeChecker', () => {
 
     expect(checker.check({ bar: Math.random() })).to.be.false;
     expect(checker.check({ bar: 'foo' })).to.be.true;
-    expect(checker.check({ bar: noop })).to.be.false;
+    expect(checker.check({ bar() {} })).to.be.false;
     expect(checker.check({ bar: true })).to.be.false;
 
     checker = makeTypeChecker({
@@ -195,7 +194,7 @@ describe('makeTypeChecker', () => {
 
     expect(checker.check({ biz: Math.random() })).to.be.false;
     expect(checker.check({ biz: 'foo' })).to.be.false;
-    expect(checker.check({ biz: noop })).to.be.true;
+    expect(checker.check({ biz() {} })).to.be.true;
     expect(checker.check({ biz: true })).to.be.false;
 
     checker = makeTypeChecker({
@@ -204,7 +203,7 @@ describe('makeTypeChecker', () => {
 
     expect(checker.check({ buzz: Math.random() })).to.be.false;
     expect(checker.check({ buzz: 'foo' })).to.be.false;
-    expect(checker.check({ buzz: noop })).to.be.false;
+    expect(checker.check({ buzz() {} })).to.be.false;
     expect(checker.check({ buzz: true })).to.be.true;
   });
 

@@ -1,12 +1,12 @@
 import map from 'lodash.map';
 import toPairs from 'lodash.topairs';
 import every from 'lodash.every';
-import forEach from 'lodash.foreach';
 import isString from 'lodash.isstring';
 import isPlainObject from 'lodash.isplainobject';
 import isFunction from 'lodash.isfunction';
 import hasIn from 'lodash.hasin';
 import fromPairs from 'lodash.frompairs';
+import reduce from 'lodash.reduce';
 
 export class PrimitiveTypeChecker {
   /**
@@ -82,11 +82,15 @@ export function makeTypeChecker(shape) {
   if (isString(shape)) {
     return primitiveTypeCheckers[shape];
   } else if (isPlainObject(shape)) {
-    const checker = new ObjectTypeChecker();
-    forEach(toPairs(shape), ([propName, propShape]) =>
-      checker.addPropChecker(propName, makeTypeChecker(propShape))
+    return reduce(
+      toPairs(shape),
+      (checker, [propName, propShape]) => {
+        const propChecker = makeTypeChecker(propShape);
+        checker.addPropChecker(propName, propChecker);
+        return checker;
+      },
+      new ObjectTypeChecker()
     );
-    return checker;
   } else if (isFunction(shape)) {
     return { check: shape };
   }
